@@ -73,7 +73,7 @@ int main(void)
         glfwPollEvents();
     }
 
-    glDeleteBuffers(1, vertexBufferID);
+    glDeleteBuffers(1, &vertexBufferID);
     glfwDestroyWindow(window);
     glfwTerminate();
     return 0;
