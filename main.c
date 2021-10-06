@@ -2,6 +2,8 @@
 #include <GLFW/glfw3.h>
 #include <stdio.h>
 
+#include "reader.h"
+
 int main(void)
 {
     GLFWwindow* window;
@@ -56,6 +58,9 @@ int main(void)
     glEnableVertexAttribArray(0);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+    const char* amongus = ReadFile("amongus.txt");
+    printf(amongus);
         
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
