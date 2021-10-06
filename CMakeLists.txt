@@ -5,6 +5,7 @@ project(LEARNCMAKE)
 add_executable(${PROJECT_NAME} main.c) 
 
 add_subdirectory(dep/glfw)
+add_subdirectory(dep/glad)
 
 target_include_directories(${PROJECT_NAME}
     PUBLIC dep/glfw/include
