@@ -1,5 +1,6 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <stdio.h>
 
 int main(void)
 {
@@ -25,7 +26,11 @@ int main(void)
     /* Make the window's context current */
     glfwMakeContextCurrent(window);
 
-    gladLoadGL();
+    if(!gladLoadGL())
+    {
+        printf("Could not load GLAD\n");
+        return -1;
+    }
 
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
@@ -40,6 +45,7 @@ int main(void)
         glfwPollEvents();
     }
 
+    glfwDestroyWindow(window);
     glfwTerminate();
     return 0;
 }
