@@ -1,24 +1,35 @@
 #include <stdio.h>
-#include "window.h"
-#include "file.h"
-#include "obama.h"
-#include "biden.h"
+#include <GLFW/glfw3.h>
 
 int main(void)
 {
-    struct Window mainWindow = CreateWindow(
-        300, 300, 600, 400, 
-        "Main Window"
+    if (!glfwInit())
+    {
+        printf("BRUH\n");
+    }
+
+    GLFWwindow* window = glfwCreateWindow(
+        600, 400, "LEARNCMAKE!", NULL, NULL
     );
-    
-    printf("%s\n", mainWindow.name);
 
-    File myFile = OpenFile("dicks/hentai/seggs.png");
+    if (!window)
+    {
+        printf("Could not create window\n");
+    }
 
-    CloseFile(myFile);
+    glfwMakeContextCurrent(window);
 
-    ObamaSeggs();
-    BidenSeggs();
+    if (!glfwWindowShouldClose(window))
+    {
+
+        //glClear(GL_COLOR_BUFFER_BIT);
+
+        glfwSwapBuffers(window);
+
+        glfwPollEvents();
+    }
+
+    glfwTerminate();
 
     return 0;
 }
