@@ -53,7 +53,7 @@ int main(void)
 
     /* Vertex attributes */
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (const void*)0);
-    glEnableVertexAtrribArray(0);
+    glEnableVertexAttribArray(0);
         
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
