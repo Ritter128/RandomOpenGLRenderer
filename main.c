@@ -8,8 +8,12 @@ int main(void)
 
     /* Initialize the library */
     if (!glfwInit())
+    {
+        printf("Failed to load GLFW\n");
         return -1;
+    }
 
+    /* Set up profile and OpenGL version */
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -18,6 +22,7 @@ int main(void)
     window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
     if (!window)
     {
+        printf("Could create window\n");
         glfwTerminate();
         return -1;
     }
@@ -28,6 +33,7 @@ int main(void)
     if(!gladLoadGL())
     {
         printf("Could not load GLAD\n");
+        glfwTerminate();
         return -1;
     }
 
