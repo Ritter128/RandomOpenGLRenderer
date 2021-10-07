@@ -91,14 +91,17 @@ int main(void)
     int compileStatusDeVertex;
     glGetShaderiv(vertexShaderID, GL_COMPILE_STATUS, &compileStatusDeVertex);
 
-    if (!compileStatusDeVertex)
+    if (compileStatusDeVertex == GL_FALSE)
     {
         printf("[VERTEX SHADER ERROR]");
 
-        char* infoLog;
-        GLsizei infoSize;
+        int infoLength;
 
-        glGetShaderInfoLog(vertexShaderID, NULL, &infoSize, infoLog);
+        glGetShaderiv(vertexShaderID, GL_INFO_LOG_LENGTH, &infoLength);
+
+        char* infoLog;
+
+        glGetShaderInfoLog(vertexShaderID, NULL, &infoLength, infoLog);
 
         printf("%s\n", infoLog);
     }
