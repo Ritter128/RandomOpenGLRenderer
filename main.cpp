@@ -6,7 +6,7 @@
 
 #include "shaders.h"
 
-const char* vertexShader = R"(
+const std::string vertexShader = R"(
 #version 330 core
 layout(location = 0) in vec2 aPosition;
 
@@ -16,7 +16,7 @@ void main()
 }
 )";
 
-const char* fragShader = R"(
+const std::string fragShader = R"(
 #version 330 core
 
 out vec4 FragColor;
@@ -88,51 +88,10 @@ int main(void)
     glEnableVertexAttribArray(0);
     
     /* Vertex Shader */
-    unsigned int vertexShaderID = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertexShaderID, 1, &vertexShader, NULL);
-    glCompileShader(vertexShaderID);
-
-    int compileStatusDeVertex;
-    glGetShaderiv(vertexShaderID, GL_COMPILE_STATUS, &compileStatusDeVertex);
-
-    if (compileStatusDeVertex == GL_FALSE)
-    {
-        printf("[VERTEX SHADER ERROR]");
-
-        GLsizei infoLength;
-
-        glGetShaderiv(vertexShaderID, GL_INFO_LOG_LENGTH, &infoLength);
-
-        char* infoLog = (char*)alloca(infoLength * sizeof(char));
-
-        glGetShaderInfoLog(vertexShaderID, infoLength, &infoLength, infoLog);
-
-        std::cout << infoLog << "\n";
-    }
+    unsigned int vertexShaderID = CompileShader(vertexShader, GL_VERTEX_SHADER);
 
     /* Fragment Shader */
-
-    unsigned int fragShaderID = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragShaderID, 1, &fragShader, NULL);
-    glCompileShader(fragShaderID);
-
-    int compileStatusDeFragment;
-    glGetShaderiv(fragShaderID, GL_COMPILE_STATUS, &compileStatusDeFragment);
-
-    if (compileStatusDeFragment == GL_FALSE)
-    {
-        printf("[FRAGMENT SHADER ERROR]");
-
-        GLsizei infoLength;
-
-        glGetShaderiv(fragShaderID, GL_INFO_LOG_LENGTH, &infoLength);
-
-        char* infoLog = (char*)alloca(infoLength * sizeof(char));
-
-        glGetShaderInfoLog(fragShaderID, infoLength, &infoLength, infoLog);
-
-        std::cout << infoLog << "\n";
-    }
+    unsigned int fragShaderID = CompileShader(fragShader, GL_FRAGMENT_SHADER);
 
     unsigned int shaderProgram = glCreateProgram();
     glAttachShader(shaderProgram, vertexShaderID);
