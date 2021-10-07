@@ -103,7 +103,7 @@ int main(void)
 
         char* infoLog = (char*)alloca(infoLength * sizeof(char));
 
-        glGetShaderInfoLog(vertexShaderID, NULL, &infoLength, infoLog);
+        glGetShaderInfoLog(vertexShaderID, infoLength, &infoLength, infoLog);
 
         std::cout << infoLog << "\n";
     }
