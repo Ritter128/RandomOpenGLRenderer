@@ -86,7 +86,6 @@ int main(void)
     //glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     /* Shaders */
-
     unsigned int vertexShaderID = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vertexShaderID, 1, &vertexShader, NULL);
     glCompileShader(vertexShaderID);
