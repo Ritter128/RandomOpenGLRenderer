@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 const char* vertexShader = R"(
-#version 330 core
+#version 330
 layout(location = 0) in vec3 aPosition;
 
 void main()
@@ -14,7 +14,7 @@ void main()
 )";
 
 const char* fragShader = R"(
-#version 330 core
+#version 330 
 
 out vec4 FragColor;
 
@@ -76,7 +76,7 @@ int main(void)
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
     /* Vertex attributes */
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, 0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), 0);
     glEnableVertexAttribArray(0);
 
     //glBindBuffer(GL_ARRAY_BUFFER, 0);
