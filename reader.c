@@ -30,10 +30,11 @@ char* ReadFile(const char* fileName)
 
     printf("File size: %d\n", fileSize);
 
-    outContents = (char*)malloc(sizeof(char) * (fileSize+1));
-    fread(outContents, sizeof(char), fileSize, outContents);
-    outContents[fileSize] = '\0';
-
+    for (int i = 0; i < fileSize+1; i++)
+    {
+        fgets(outContents, sizeof(outContents), pFile);
+    }
+    
     printf(outContents);
 
     fclose(pFile);
