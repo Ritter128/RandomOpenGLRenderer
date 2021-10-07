@@ -97,7 +97,7 @@ int main(void)
     {
         printf("[VERTEX SHADER ERROR]");
 
-        int infoLength;
+        GLsizei infoLength;
 
         glGetShaderiv(vertexShaderID, GL_INFO_LOG_LENGTH, &infoLength);
 
