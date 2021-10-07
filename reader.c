@@ -14,7 +14,7 @@ fclose(fp);
 const char* ReadFile(const char* fileName)
 {
     FILE* pFile = fopen(fileName, "r");
-    const char* outContents;
+    char* outContents;
     int fileSize;
 
     if (pFile == NULL)
@@ -29,7 +29,9 @@ const char* ReadFile(const char* fileName)
 
     printf("File size: %d\n", fileSize);
 
-    while (fgets(outContents, sizeof(outContents), pFile));
+    outContents = (char*)malloc(sizeof(char) * (fileSize+1));
+    fread(outContents, sizeof(char), fileSize, outContents);
+    outContents[fileSize] = '\0';
 
     printf(outContents);
 
