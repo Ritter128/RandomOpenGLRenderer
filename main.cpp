@@ -4,7 +4,7 @@
 
 const char* vertexShader = R"(
 #version 330 core
-in layout(location = 0) vec3 aPosition;
+layout(location = 0) in vec3 aPosition;
 
 out vec4 aColor;
 
