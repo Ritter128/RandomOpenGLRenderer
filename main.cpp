@@ -6,7 +6,7 @@
 
 #include "shaders.h"
 
-const std::string vertexShader = R"(
+const std::string vertexShaderSource = R"(
 #version 330 core
 layout(location = 0) in vec2 aPosition;
 
@@ -16,7 +16,7 @@ void main()
 }
 )";
 
-const std::string fragShader = R"(
+const std::string fragShaderSource = R"(
 #version 330 core
 
 out vec4 FragColor;
@@ -66,8 +66,14 @@ int main(void)
 
     float vertices[] = {
         -0.5f, -0.5f,
-         0.0f,  0.5f,
-         0.5f, -0.5f
+        -0.5f,  0.5f,
+         0.5f, -0.5f,
+         0.5f,  0.5f,
+    };
+
+    unsigned int indices[] = {
+        0, 1, 2,
+        1, 3, 2,
     };
 
     glViewport(0, 0, 600, 400);
@@ -83,13 +89,19 @@ int main(void)
     glBindBuffer(GL_ARRAY_BUFFER, vertexBufferID);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
+    /* Index buffer */
+    unsigned int indexBufferID;
+    glGenBuffers(1, &indexBufferID);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBufferID); // CHKERR
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
     /* Vertex attributes */
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), 0);
     glEnableVertexAttribArray(0);
     
     /* Shaders */
-    unsigned int vertexShaderID = CompileShader(vertexShader, GL_VERTEX_SHADER);
-    unsigned int fragShaderID = CompileShader(fragShader, GL_FRAGMENT_SHADER);
+    unsigned int vertexShaderID = CompileShader(vertexShaderSource, GL_VERTEX_SHADER);
+    unsigned int fragShaderID = CompileShader(fragShaderSource, GL_FRAGMENT_SHADER);
 
     unsigned int shaderProgram = glCreateProgram();
     glAttachShader(shaderProgram, vertexShaderID);
@@ -104,13 +116,14 @@ int main(void)
     {
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
-        //glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
+        glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
 
         glUseProgram(shaderProgram);
 
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 
         /* Swap front and back buffers */
+
         glfwSwapBuffers(window);
 
         /* Poll for and process events */
@@ -119,6 +132,7 @@ int main(void)
 
     glDeleteProgram(shaderProgram);
     glDeleteBuffers(1, &vertexBufferID);
+    glDeleteBuffers(1, &indexBufferID);
     glfwDestroyWindow(window);
     glfwTerminate();
     return 0;
