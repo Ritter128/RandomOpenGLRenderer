@@ -109,9 +109,28 @@ int main(void)
     }
 
     /* Fragment Shader */
+
     unsigned int fragShaderID = glCreateShader(GL_FRAGMENT_SHADER);
     glShaderSource(fragShaderID, 1, &fragShader, NULL);
     glCompileShader(fragShaderID);
+
+    int compileStatusDeFragment;
+    glGetShaderiv(fragShaderID, GL_COMPILE_STATUS, &compileStatusDeFragment);
+
+    if (compileStatusDeFragment == GL_FALSE)
+    {
+        printf("[FRAGMENT SHADER ERROR]");
+
+        GLsizei infoLength;
+
+        glGetShaderiv(fragShaderID, GL_INFO_LOG_LENGTH, &infoLength);
+
+        char* infoLog = (char*)alloca(infoLength * sizeof(char));
+
+        glGetShaderInfoLog(fragShaderID, infoLength, &infoLength, infoLog);
+
+        std::cout << infoLog << "\n";
+    }
 
     unsigned int shaderProgram = glCreateProgram();
     glAttachShader(shaderProgram, vertexShaderID);
