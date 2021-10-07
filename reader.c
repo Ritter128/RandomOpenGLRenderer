@@ -27,7 +27,7 @@ char* ReadFile(const char* fileName)
 
     fclose(pFile);
 
-    strcpy(fileContents, outContents);
+    strcpy(outContents, fileContents);
 
     return outContents;
 }
