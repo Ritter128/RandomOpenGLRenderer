@@ -1,5 +1,6 @@
 #include "reader.h"
 #include <stdio.h>
+#include <string.h>
 
 /*
 char buffer[100];
@@ -14,6 +15,7 @@ char* ReadFile(const char* fileName)
 {
     FILE* pFile = fopen(fileName, "r");
     char fileContents[500];
+    char* outContents;
 
     if (pFile == NULL)
     {
@@ -25,5 +27,7 @@ char* ReadFile(const char* fileName)
 
     fclose(pFile);
 
-    return fileContents;
+    strcpy(fileContents, outContents);
+
+    return outContents;
 }
