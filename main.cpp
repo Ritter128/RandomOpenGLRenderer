@@ -1,6 +1,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 const char* vertexShader = R"(
 #version 330 core
@@ -99,7 +100,7 @@ int main(void)
 
         glGetShaderiv(vertexShaderID, GL_INFO_LOG_LENGTH, &infoLength);
 
-        char* infoLog;
+        char* infoLog = (char*)alloca(infoLength * sizeof(char));
 
         glGetShaderInfoLog(vertexShaderID, NULL, &infoLength, infoLog);
 
