@@ -1,7 +1,7 @@
 #include "reader.h"
 #include <stdio.h>
 
-const char* ReadFile(const char* fileName)
+char* ReadFile(const char* fileName)
 {
     FILE* pFile = fopen(fileName, "r");
     char fileContents[500];
