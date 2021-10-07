@@ -59,7 +59,7 @@ int main(void)
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-    const char* amongus = ReadFile("amongus.txt");
+    char* amongus = ReadFile("amongus.txt");
     printf(amongus);
         
     /* Loop until the user closes the window */
