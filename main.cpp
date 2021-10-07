@@ -24,7 +24,7 @@ in vec4 aColor;
 
 void main()
 {
-    FragColor = aColor;
+    FragColor = vec3(1.0, 0.0, 0.0, 1.0);
 }
 )";
 
