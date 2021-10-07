@@ -12,7 +12,7 @@ while (fgets(buffer, sizeof(buffer), fp)) {
 fclose(fp);
 */
 
-const char* ReadFile(const char* fileName)
+char* ReadFile(const char* fileName)
 {
     FILE* pFile = fopen(fileName, "r");
     char* outContents;
