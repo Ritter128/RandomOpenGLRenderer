@@ -2,6 +2,7 @@
 #include <GLFW/glfw3.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <iostream>
 
 const char* vertexShader = R"(
 #version 330 core
@@ -104,7 +105,7 @@ int main(void)
 
         glGetShaderInfoLog(vertexShaderID, NULL, &infoLength, infoLog);
 
-        printf("%s\n", infoLog);
+        std::cout << infoLog << "\n";
     }
 
     /* Fragment Shader */
