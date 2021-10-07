@@ -24,7 +24,9 @@ char* ReadFile(const char* fileName)
 
     while (fgets(outContents, sizeof(outContents), pFile));
 
+    printf(outContents);
+
     fclose(pFile);
-    
+
     return outContents;
 }
