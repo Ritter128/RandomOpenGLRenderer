@@ -9,7 +9,7 @@ layout(location = 0) in vec2 aPosition;
 void main()
 {
     gl_Position = vec4(aPosition, 0.0, 1.0);
-}
+}GIGA NIGGA
 
 )";
 
@@ -46,7 +46,7 @@ int main(void)
     {
         printf("Could create window\n");
         glfwTerminate();
-        return -1;
+        return -1; 
     }
 
     /* Make the window's context current */
@@ -82,9 +82,28 @@ int main(void)
     //glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     /* Shaders */
+    
+    /* Vertex Shader */
     unsigned int vertexShaderID = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vertexShaderID, 1, &vertexShader, NULL);
     glCompileShader(vertexShaderID);
+
+    int compileStatusDeVertex;
+    glGetShaderiv(vertexShaderID, GL_COMPILE_STATUS, &compileStatusDeVertex);
+
+    if (!compileStatusDeVertex)
+    {
+        printf("[VERTEX SHADER ERROR]");
+
+        char* infoLog;
+        GLsizei infoSize;
+
+        glGetShaderInfoLog(vertexShaderID, NULL, &infoSize, infoLog);
+
+        printf("%s\n", infoLog);
+    }
+
+    /* Fragment Shader */
     unsigned int fragShaderID = glCreateShader(GL_FRAGMENT_SHADER);
     glShaderSource(fragShaderID, 1, &fragShader, NULL);
     glCompileShader(fragShaderID);
