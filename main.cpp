@@ -71,6 +71,11 @@ int main(void)
 
     glViewport(0, 0, 600, 400);
 
+    /* Vertex Array */
+    unsigned int vertexArrayID;
+    glGenVertexArrays(1, &vertexArrayID);
+    glBindVertexArray(vertexArrayID);
+
     /* Vertex buffer */
     unsigned int vertexBufferID;
     glGenBuffers(1, &vertexBufferID);
