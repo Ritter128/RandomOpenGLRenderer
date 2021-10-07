@@ -16,6 +16,8 @@ const char* ReadFile(const char* fileName)
     while ((currentChar = fgetc(pFile)) != EOF)
     {
         fscanf(pFile, fileContents);
+        printf("%s\n", fileContents);
+        printf("%c\n", currentChar);
     }
 
     fclose(pFile);\
