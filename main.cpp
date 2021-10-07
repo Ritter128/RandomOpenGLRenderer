@@ -87,10 +87,8 @@ int main(void)
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), 0);
     glEnableVertexAttribArray(0);
     
-    /* Vertex Shader */
+    /* Shaders */
     unsigned int vertexShaderID = CompileShader(vertexShader, GL_VERTEX_SHADER);
-
-    /* Fragment Shader */
     unsigned int fragShaderID = CompileShader(fragShader, GL_FRAGMENT_SHADER);
 
     unsigned int shaderProgram = glCreateProgram();
