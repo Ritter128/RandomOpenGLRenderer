@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.20.3)
 
 project(LEARNCMAKE)
 
-add_executable(${PROJECT_NAME} main.c reader.c reader.h) 
+add_executable(${PROJECT_NAME} main.cpp) 
 
 add_subdirectory(dep/glfw)
 add_subdirectory(dep/glad)
