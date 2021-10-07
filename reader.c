@@ -4,7 +4,7 @@
 const char* ReadFile(const char* fileName)
 {
     FILE* pFile = fopen(fileName, "r");
-    const char* fileContents;
+    char fileContents[500];
     char currentChar;
 
     if (pFile == NULL)
@@ -13,14 +13,16 @@ const char* ReadFile(const char* fileName)
         return "Cringe";
     }
 
+    int iterator = 0;
     while ((currentChar = fgetc(pFile)) != EOF)
     {
-        fscanf(pFile, fileContents);
         printf("%s\n", fileContents);
         printf("%c\n", currentChar);
+        fileContents[iterator] = currentChar;
+        iterator++;   
     }
 
-    fclose(pFile);\
+    fclose(pFile);
 
     return fileContents;
 }
