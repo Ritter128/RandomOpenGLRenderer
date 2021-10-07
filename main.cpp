@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <iostream>
 
+#include "shaders.h"
+
 const char* vertexShader = R"(
 #version 330 core
 layout(location = 0) in vec2 aPosition;
@@ -12,7 +14,6 @@ void main()
 {
     gl_Position = vec4(aPosition, 0.0, 1.0);
 }
-
 )";
 
 const char* fragShader = R"(
@@ -85,10 +86,6 @@ int main(void)
     /* Vertex attributes */
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), 0);
     glEnableVertexAttribArray(0);
-
-    //glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-    /* Shaders */
     
     /* Vertex Shader */
     unsigned int vertexShaderID = glCreateShader(GL_VERTEX_SHADER);
