@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 const char* vertexShader = R"(
-#version 330
+#version 330 core
 layout(location = 0) in vec2 aPosition;
 
 void main()
@@ -14,7 +14,7 @@ void main()
 )";
 
 const char* fragShader = R"(
-#version 330 
+#version 330 core
 
 out vec4 FragColor;
 
