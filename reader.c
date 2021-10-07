@@ -11,10 +11,10 @@ while (fgets(buffer, sizeof(buffer), fp)) {
 fclose(fp);
 */
 
-char* ReadFile(const char* fileName)
+const char* ReadFile(const char* fileName)
 {
     FILE* pFile = fopen(fileName, "r");
-    char* outContents;
+    const char* outContents;
 
     if (pFile == NULL)
     {
