@@ -16,8 +16,8 @@ char* ReadFile(const char* fileName)
     int iterator = 0;
     while ((currentChar = fgetc(pFile)) != EOF)
     {
-        printf("%s\n", fileContents);
-        printf("%c\n", currentChar);
+        //printf("%s\n", fileContents);
+        //printf("%c\n", currentChar);
         fileContents[iterator] = currentChar;
         iterator++;   
     }
