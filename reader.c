@@ -14,7 +14,6 @@ fclose(fp);
 char* ReadFile(const char* fileName)
 {
     FILE* pFile = fopen(fileName, "r");
-    char fileContents[500];
     char* outContents;
 
     if (pFile == NULL)
@@ -23,11 +22,9 @@ char* ReadFile(const char* fileName)
         return "Cringe";
     }
 
-    while (fgets(fileContents, sizeof(fileContents), pFile));
+    while (fgets(outContents, sizeof(outContents), pFile));
 
     fclose(pFile);
-
-    strcpy(outContents, fileContents);
-
+    
     return outContents;
 }
