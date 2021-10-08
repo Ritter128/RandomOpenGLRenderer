@@ -10,11 +10,13 @@ add_subdirectory(dep/glad)
 target_include_directories(${PROJECT_NAME}
     PUBLIC dep/glfw/include
     PUBLIC dep/glad/include
+    PUBLIC dep/glm
 )
 
 target_link_directories(${PROJECT_NAME}
     PRIVATE dep/glfw/src
     PRIVATE dep/glad/src
+    PRIVATE dep/glm/glm
 )
 
 target_link_libraries(${PROJECT_NAME} glfw glad)
