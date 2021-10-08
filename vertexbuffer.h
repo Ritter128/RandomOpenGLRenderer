@@ -1,10 +1,17 @@
 #pragma once
 #include <glad/glad.h>
+#include <glm/glm.hpp>
+
+struct Vertex 
+{
+    glm::vec3 position;
+    glm::vec2 texCoords;
+};
 
 class VertexBuffer 
 {
 public:
-    VertexBuffer(const float* data, unsigned int size);
+    VertexBuffer(const Vertex* data, unsigned int size);
     ~VertexBuffer();
 
     void Bind();

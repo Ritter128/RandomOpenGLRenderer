@@ -4,8 +4,6 @@
 #include <glm/ext.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <stb_image.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -14,6 +12,7 @@
 #include "shaders.h"
 #include "vertexbuffer.h"
 #include "indexbuffer.h"
+#include "vertexarray.h"
 
 /* GLOBALS */
 glm::vec3 cubePos;
@@ -114,11 +113,11 @@ int main(void)
 
     /* Rendering code */
 
-    float vertices[] = {
-        -0.5f, -0.5f,  0.5f, 1.0f, 1.0f, //0
-        -0.5f,  0.5f,  0.5f, 1.0f, 0.0f, //1
-         0.5f, -0.5f,  0.5f, 0.0f, 0.0f, //2
-         0.5f,  0.5f,  0.5f, 0.0f, 1.0f, //3
+    Vertex vertices[] = {
+        glm::vec3(-0.5f, -0.5f,  0.5f), glm::vec2(1.0f, 1.0f), //0
+        glm::vec3(-0.5f,  0.5f,  0.5f), glm::vec2(1.0f, 0.0f), //1
+        glm::vec3( 0.5f, -0.5f,  0.5f), glm::vec2(0.0f, 0.0f), //2
+        glm::vec3( 0.5f,  0.5f,  0.5f), glm::vec2(0.0f, 1.0f), //3
         // 0.5f, -0.5f, -0.5f, 1.0f, 0.0f, //4
         // 0.5f,  0.5f, -0.5f, 1.0f, 0.0f, //5
         //-0.5f, -0.5f, -0.5f, 1.0f, 0.0f, //6
@@ -171,21 +170,14 @@ int main(void)
     stbi_image_free(imageFile);
 
     /* Vertex Array */
-    unsigned int vertexArrayID;
-    glGenVertexArrays(1, &vertexArrayID);
-    glBindVertexArray(vertexArrayID);
+    VertexArray vertexArray;
 
-    /* Vertex buffer */
+    /* Buffers */
     VertexBuffer vertexBuffer(vertices, sizeof(vertices));
-
-    /* Index buffer */
     IndexBuffer indexBuffer(indices, sizeof(indices));
 
     /* Vertex attributes */
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), 0);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (const void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
+    vertexArray.LinkVertexAttrib(vertexBuffer);
     
     /* Shaders */
     std::string vsSource = ReadFile("Shaders/vertShader.glsl");
