@@ -64,8 +64,6 @@ const std::string ReadFile(std::string name)
 
     while(getline(inFile, item))
     {
-        //inFile >> item;
-        std::cout << "-> " << item << "\n";
         contents << item << "\n";
     }
     
@@ -157,7 +155,6 @@ int main(void)
     }
     else
     {
-        std::cout << "KEKKKKK\n";
         unsigned int textureID;
         glGenTextures(1, &textureID);
         glBindTexture(GL_TEXTURE_2D, textureID);

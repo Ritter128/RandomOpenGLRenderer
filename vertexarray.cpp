@@ -14,9 +14,9 @@ VertexArray::~VertexArray()
 void VertexArray::LinkVertexAttrib(VertexBuffer& vertexBuffer)
 {
     vertexBuffer.Bind();
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), 0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*) offsetof(Vertex, position));
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (const void*)(3 * sizeof(float)));
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*) offsetof(Vertex, texCoords));
     glEnableVertexAttribArray(1);
     vertexBuffer.Unbind();
 }
