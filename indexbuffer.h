@@ -1,11 +1,11 @@
 #pragma once
 #include <glad/glad.h>
 
-class VertexBuffer 
+class IndexBuffer 
 {
 public:
-    VertexBuffer(const float* data, unsigned int size);
-    ~VertexBuffer();
+    IndexBuffer(const unsigned int* indices, unsigned int size);
+    ~IndexBuffer();
 
     void Bind();
     void Unbind();

@@ -13,6 +13,7 @@
 
 #include "shaders.h"
 #include "vertexbuffer.h"
+#include "indexbuffer.h"
 
 /* GLOBALS */
 glm::vec3 cubePos;
@@ -178,10 +179,7 @@ int main(void)
     VertexBuffer vertexBuffer(vertices, sizeof(vertices));
 
     /* Index buffer */
-    unsigned int indexBufferID;
-    glGenBuffers(1, &indexBufferID);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBufferID); // CHKERR
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+    IndexBuffer indexBuffer(indices, sizeof(indices));
 
     /* Vertex attributes */
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), 0);
@@ -237,7 +235,6 @@ int main(void)
         /* Poll for and process events */
         glfwPollEvents();
     }
-    glDeleteBuffers(1, &indexBufferID);
     glfwDestroyWindow(window);
     glfwTerminate();
     return 0;
