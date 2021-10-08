@@ -6,40 +6,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
+#include <fstream>
+#include <string>
+#include <sstream>
 
 #include "shaders.h"
-
-const std::string vertexShaderSource = R"(
-#version 330 core
-layout(location = 0) in vec3 aPosition;
-
-uniform mat4 uModelMatrix;
-uniform mat4 uViewMatrix;
-uniform mat4 uProjMatrix;
-mat4 uFinalMatrix;
-
-out vec4 vertColor;
-
-void main()
-{
-    vertColor = vec4(aPosition, 1.0);
-    uFinalMatrix = uProjMatrix * uModelMatrix;
-    gl_Position = uFinalMatrix * vec4(aPosition, 1.0);
-}
-)";
-
-const std::string fragShaderSource = R"(
-#version 330 core
-
-in vec4 vertColor;
-
-out vec4 FragColor;
-
-void main()
-{
-    FragColor = vec4(normalize(vertColor));
-}
-)";
 
 /* GLOBALS */
 glm::vec3 cubePos;
@@ -74,6 +45,30 @@ void OnKey(GLFWwindow* window, int key, int scancode, int action, int mode)
     {
         cubeRotX -= 5.0f;
     }
+}
+
+const std::string ReadFile(std::string name)
+{
+    std::ifstream inFile;
+    inFile.open(name);
+    std::stringstream contents;
+
+    std::string item;
+
+    if (inFile.fail())
+    {
+        return "Failed to read file";
+    }
+
+    while(getline(inFile, item))
+    {
+        //inFile >> item;
+        std::cout << "-> " << item << "\n";
+        contents << item << "\n";
+    }
+    
+
+    return contents.str();
 }
 
 int main(void)
@@ -166,8 +161,11 @@ int main(void)
     glEnableVertexAttribArray(0);
     
     /* Shaders */
-    unsigned int vertexShaderID = CompileShader(vertexShaderSource, GL_VERTEX_SHADER);
-    unsigned int fragShaderID = CompileShader(fragShaderSource, GL_FRAGMENT_SHADER);
+    std::string vsSource = ReadFile("vertShader.glsl");
+    std::string fsSource = ReadFile("fragShader.glsl");
+
+    unsigned int vertexShaderID = CompileShader(vsSource, GL_VERTEX_SHADER);
+    unsigned int fragShaderID = CompileShader(fsSource, GL_FRAGMENT_SHADER);
 
     unsigned int shaderProgram = glCreateProgram();
     glAttachShader(shaderProgram, vertexShaderID);
@@ -177,7 +175,6 @@ int main(void)
     glDeleteShader(vertexShaderID);
     glDeleteShader(fragShaderID);
  
-
     glEnable(GL_DEPTH_TEST);
         
     float rot = 0.0f;
