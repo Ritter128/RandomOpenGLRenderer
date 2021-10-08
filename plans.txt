@@ -1,0 +1,4 @@
+Model, our model to render with vertex buffers and all
+Transform, handle our matrices and transformations
+Entity, to pack together a model and transform in a neat package
+
