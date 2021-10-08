@@ -12,6 +12,7 @@
 #include <sstream>
 
 #include "shaders.h"
+#include "vertexbuffer.h"
 
 /* GLOBALS */
 glm::vec3 cubePos;
@@ -89,7 +90,7 @@ int main(void)
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(600, 400, "Hello World", NULL, NULL);
+    window = glfwCreateWindow(600, 400, "Seggs Engine 420", NULL, NULL);
     if (!window)
     {
         printf("Could create window\n");
@@ -151,19 +152,21 @@ int main(void)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
     if(!imageFile)
+    {
         std::cout << "Cringe\n";
-    else 
+    }
+    else
+    {
         std::cout << "KEKKKKK\n";
+        unsigned int textureID;
+        glGenTextures(1, &textureID);
+        glBindTexture(GL_TEXTURE_2D, textureID);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, 
+        GL_RGBA, GL_UNSIGNED_BYTE, imageFile);
+        glGenerateMipmap(GL_TEXTURE_2D);
 
-    unsigned int textureID;
-    glGenTextures(1, &textureID);
-    glBindTexture(GL_TEXTURE_2D, textureID);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, 
-    GL_RGBA, GL_UNSIGNED_BYTE, imageFile);
-    glGenerateMipmap(GL_TEXTURE_2D);
-
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    } 
     stbi_image_free(imageFile);
 
     /* Vertex Array */
@@ -172,10 +175,7 @@ int main(void)
     glBindVertexArray(vertexArrayID);
 
     /* Vertex buffer */
-    unsigned int vertexBufferID;
-    glGenBuffers(1, &vertexBufferID);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexBufferID);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    VertexBuffer vertexBuffer(vertices, sizeof(vertices));
 
     /* Index buffer */
     unsigned int indexBufferID;
@@ -196,13 +196,7 @@ int main(void)
     unsigned int vertexShaderID = CompileShader(vsSource, GL_VERTEX_SHADER);
     unsigned int fragShaderID = CompileShader(fsSource, GL_FRAGMENT_SHADER);
 
-    unsigned int shaderProgram = glCreateProgram();
-    glAttachShader(shaderProgram, vertexShaderID);
-    glAttachShader(shaderProgram, fragShaderID);
-    glLinkProgram(shaderProgram);
-
-    glDeleteShader(vertexShaderID);
-    glDeleteShader(fragShaderID);
+    Shader shaderProgram(vertexShaderID, fragShaderID);
  
     glEnable(GL_DEPTH_TEST);
         
@@ -216,7 +210,7 @@ int main(void)
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
-        glUseProgram(shaderProgram);
+        shaderProgram.Bind();
 
         /* Matrices */
         glm::mat4 modelMatrix = glm::mat4(1.0f);
@@ -227,12 +221,9 @@ int main(void)
         projMatrix = glm::perspective(glm::radians(90.0f), (float)(600/400), 0.1f, 100.0f);
 
         /* Uniforms */
-        int locModelMatrix = glGetUniformLocation(shaderProgram, "uModelMatrix");
-        glUniformMatrix4fv(locModelMatrix, 1, GL_FALSE, glm::value_ptr(modelMatrix));
-        int locProjMatrix = glGetUniformLocation(shaderProgram, "uProjMatrix");
-        glUniformMatrix4fv(locProjMatrix, 1, GL_FALSE, glm::value_ptr(projMatrix)); 
-        int locTexSample = glGetUniformLocation(shaderProgram, "uTexSample");
-        glUniform1i(locTexSample, 0);
+        shaderProgram.SetUniformMatrix4FV("uModelMatrix", modelMatrix);
+        shaderProgram.SetUniformMatrix4FV("uProjMatrix", projMatrix);
+        shaderProgram.SetUniformInt("uTexSampler", 0);
         
         //std::cout << "CAMERA POSITION Z: " << cubePos.z << "\n";
         //std::cout << "CUBE ROT X: " << cubeRotX << "\n";
@@ -246,9 +237,6 @@ int main(void)
         /* Poll for and process events */
         glfwPollEvents();
     }
-
-    glDeleteProgram(shaderProgram);
-    glDeleteBuffers(1, &vertexBufferID);
     glDeleteBuffers(1, &indexBufferID);
     glfwDestroyWindow(window);
     glfwTerminate();

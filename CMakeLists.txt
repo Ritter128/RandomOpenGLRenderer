@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.20.3)
 
 project(LEARNCMAKE)
 
-add_executable(${PROJECT_NAME} main.cpp shaders.cpp shaders.h) 
+add_executable(${PROJECT_NAME} main.cpp shaders.cpp shaders.h vertexbuffer.cpp vertexbuffer.h) 
 
 add_subdirectory(dep/glfw)
 add_subdirectory(dep/glad)

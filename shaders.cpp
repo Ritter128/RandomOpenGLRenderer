@@ -1,6 +1,50 @@
 #include "shaders.h"
 #include <glad/glad.h>
+#include <glm/gtc/type_ptr.hpp>
 #include <iostream>
+
+Shader::Shader(unsigned int vertexShaderID, unsigned int fragmentShaderID)
+{
+    m_RendererID = glCreateProgram();
+    glAttachShader(m_RendererID, vertexShaderID);
+    glAttachShader(m_RendererID, fragmentShaderID);
+    glLinkProgram(m_RendererID);
+
+    glDeleteShader(vertexShaderID);
+    glDeleteShader(fragmentShaderID);
+}
+
+Shader::~Shader()
+{
+    glDeleteProgram(m_RendererID);
+}
+
+void Shader::SetUniformMatrix4FV(const std::string name, const glm::mat4& matrix)
+{
+    int location = glGetUniformLocation(m_RendererID, name.c_str());
+    glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
+}
+
+void Shader::SetUniformInt(const std::string name, int value)
+{
+    int location = glGetUniformLocation(m_RendererID, name.c_str());
+    glUniform1i(location, value);
+}
+
+unsigned int Shader::GetRendererID()
+{
+    return m_RendererID;
+}
+
+void Shader::Bind()
+{
+    glUseProgram(m_RendererID);
+}
+
+void Shader::Unbind()
+{
+    glUseProgram(0);
+}
 
 unsigned int CompileShader(const std::string& src, unsigned int type)
 {
