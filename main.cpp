@@ -3,6 +3,7 @@
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <stb_image.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
@@ -139,6 +140,16 @@ int main(void)
 
     glViewport(0, 0, 600, 400);
 
+    /* Load image */
+
+    int w, h, nrChannels;
+    unsigned char* imageFile = stbi_load("terrain.png", &w, &h, &nrChannels, 4);
+
+    if(!imageFile)
+        std::cout << "Cringe\n";
+    else 
+        std::cout << "KEKKKKK\n";
+
     /* Vertex Array */
     unsigned int vertexArrayID;
     glGenVertexArrays(1, &vertexArrayID);
@@ -214,7 +225,7 @@ int main(void)
 
         glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, nullptr);
 
-            /* Swap front and back buffers */
+        /* Swap front and back buffers */
 
         glfwSwapBuffers(window);
 
