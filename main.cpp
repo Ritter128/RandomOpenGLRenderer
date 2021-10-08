@@ -161,8 +161,8 @@ int main(void)
     glEnableVertexAttribArray(0);
     
     /* Shaders */
-    std::string vsSource = ReadFile("vertShader.glsl");
-    std::string fsSource = ReadFile("fragShader.glsl");
+    std::string vsSource = ReadFile("Shaders/vertShader.glsl");
+    std::string fsSource = ReadFile("Shaders/fragShader.glsl");
 
     unsigned int vertexShaderID = CompileShader(vsSource, GL_VERTEX_SHADER);
     unsigned int fragShaderID = CompileShader(fsSource, GL_FRAGMENT_SHADER);
