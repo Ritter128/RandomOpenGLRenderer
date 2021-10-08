@@ -37,7 +37,7 @@ out vec4 FragColor;
 
 void main()
 {
-    FragColor = vec4(vertColor);
+    FragColor = vec4(normalize(vertColor));
 }
 )";
 
@@ -194,8 +194,9 @@ int main(void)
 
         /* Matrices */
         glm::mat4 modelMatrix = glm::mat4(1.0f);
-        modelMatrix = glm::translate(
-            modelMatrix, glm::vec3(0.0f, 0.0f, cubePos.z)) * glm::rotate(modelMatrix, glm::radians(cubeRotX), glm::vec3(1.0f, 0.0f, 1.0f));
+        glm::mat4 modelTranslationMatrix = glm::translate(modelMatrix, glm::vec3(0.0f, 0.0f, cubePos.z));
+        glm::mat4 modelRotationMatrix = glm::rotate(modelMatrix, glm::radians(cubeRotX), glm::vec3(0.0f, 1.0f, 0.0f));
+        modelMatrix = modelTranslationMatrix * modelRotationMatrix;
         ///glm::mat4 viewMatrix = glm::mat4(1.0f);
         //glm::mat4 translationViewMatrix = glm::translate(viewMatrix, glm::vec3(0.0f, 0.0f, cubePos.z));
         //viewMatrix = glm::rotate(
@@ -211,8 +212,8 @@ int main(void)
         int locProjMatrix = glGetUniformLocation(shaderProgram, "uProjMatrix");
         glUniformMatrix4fv(locProjMatrix, 1, GL_FALSE, glm::value_ptr(projMatrix)); 
         
-        std::cout << "CAMERA POSITION Z: " << cubePos.z << "\n";
-        std::cout << "CAMERA ROT X: " << camRotX << "\n";
+        //std::cout << "CAMERA POSITION Z: " << cubePos.z << "\n";
+        //std::cout << "CUBE ROT X: " << cubeRotX << "\n";
 
         glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, nullptr);
 

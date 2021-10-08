@@ -26,6 +26,16 @@ unsigned int CompileShader(const std::string& src, unsigned int type)
                 std::cout << "[FRAGMENT SHADER ERROR]\n";
                 break;
             }
+            case GL_GEOMETRY_SHADER:
+            {
+                std::cout << "[GEOMETRY SHADER ERROR]\n";
+                break;
+            }
+            case GL_COMPUTE_SHADER:
+            {
+                std::cout << "[COMPUTE SHADER ERROR]\n";
+                break;
+            }
         }
 
         GLsizei infoLength;
