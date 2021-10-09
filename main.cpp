@@ -9,10 +9,7 @@
 #include <string>
 #include <sstream>
 
-#include "shaders.h"
-#include "indexbuffer.h"
-#include "vertexarray.h"
-#include "texture.h"
+#include "renderer.h"
 
 /* GLOBALS */
 glm::vec3 cubePos;
@@ -133,7 +130,7 @@ int main(void)
 
     /* Buffers */
     VertexBuffer vertexBuffer(vertices, sizeof(vertices));
-    IndexBuffer indexBuffer(indices, sizeof(indices));
+    IndexBuffer indexBuffer(indices, sizeof(indices), 6);
 
     /* Vertex attributes */
     vertexArray.LinkVertexAttrib(vertexBuffer);
@@ -177,7 +174,7 @@ int main(void)
         //std::cout << "CAMERA POSITION Z: " << cubePos.z << "\n";
         //std::cout << "CUBE ROT X: " << cubeRotX << "\n";
 
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+        Renderer renderer(vertexArray, indexBuffer, texture, shaderProgram);
 
         /* Swap front and back buffers */
 
