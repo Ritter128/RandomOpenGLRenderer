@@ -4,7 +4,7 @@ project(LEARNCMAKE)
 
 add_executable(${PROJECT_NAME} main.cpp shaders.cpp shaders.h 
 vertexbuffer.cpp vertexbuffer.h indexbuffer.cpp indexbuffer.h
-vertexarray.cpp vertexarray.h
+vertexarray.cpp vertexarray.h texture.cpp texture.h
 ) 
 
 add_subdirectory(dep/glfw)

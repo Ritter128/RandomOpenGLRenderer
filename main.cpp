@@ -10,9 +10,9 @@
 #include <sstream>
 
 #include "shaders.h"
-#include "vertexbuffer.h"
 #include "indexbuffer.h"
 #include "vertexarray.h"
+#include "texture.h"
 
 /* GLOBALS */
 glm::vec3 cubePos;
@@ -116,55 +116,17 @@ int main(void)
         glm::vec3(-0.5f,  0.5f,  0.5f), glm::vec2(1.0f, 0.0f), //1
         glm::vec3( 0.5f, -0.5f,  0.5f), glm::vec2(0.0f, 0.0f), //2
         glm::vec3( 0.5f,  0.5f,  0.5f), glm::vec2(0.0f, 1.0f), //3
-        // 0.5f, -0.5f, -0.5f, 1.0f, 0.0f, //4
-        // 0.5f,  0.5f, -0.5f, 1.0f, 0.0f, //5
-        //-0.5f, -0.5f, -0.5f, 1.0f, 0.0f, //6
-        //-0.5f,  0.5f, -0.5f, 1.0f, 0.0f, //7
     };
 
     unsigned int indices[] = {
         0, 1, 2,
-        1, 3, 2,
-        //3, 2, 4,      
-        //4, 3, 5,
-        //0, 1, 6,
-        //6, 1, 7,
-        //4, 5, 6,
-        //6, 7, 5,
-        //1, 3, 7,      
-        //7, 3, 5,
-        //0, 2, 6,
-        //6, 2, 4
+        1, 3, 2,            
     };
 
     glViewport(0, 0, 600, 400);
 
-    /* Load image */
-
-    int w, h, nrChannels;
-    unsigned char* imageFile = stbi_load("Textures/dirt.jpg", &w, &h, &nrChannels, 4);
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);	
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-    if(!imageFile)
-    {
-        std::cout << "Cringe\n";
-    }
-    else
-    {
-        unsigned int textureID;
-        glGenTextures(1, &textureID);
-        glBindTexture(GL_TEXTURE_2D, textureID);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, 
-        GL_RGBA, GL_UNSIGNED_BYTE, imageFile);
-        glGenerateMipmap(GL_TEXTURE_2D);
-
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    } 
-    stbi_image_free(imageFile);
+    /* Texture */
+    Texture texture("Textures/dirt.jpg", 0);
 
     /* Vertex Array */
     VertexArray vertexArray;
