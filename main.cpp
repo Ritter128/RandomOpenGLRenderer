@@ -109,15 +109,21 @@ int main(void)
     /* Rendering code */
 
     Vertex vertices[] = {
-        glm::vec3(-0.5f, -0.5f,  0.5f), glm::vec2(4.0f, 4.0f), //0
-        glm::vec3(-0.5f,  0.5f,  0.5f), glm::vec2(4.0f, 0.0f), //1
+        glm::vec3(-0.5f, -0.5f,  0.5f), glm::vec2(1.0f, 1.0f), //0
+        glm::vec3(-0.5f,  0.5f,  0.5f), glm::vec2(1.0f, 0.0f), //1
         glm::vec3( 0.5f, -0.5f,  0.5f), glm::vec2(0.0f, 0.0f), //2
-        glm::vec3( 0.5f,  0.5f,  0.5f), glm::vec2(0.0f, 4.0f), //3
+        glm::vec3( 0.5f,  0.5f,  0.5f), glm::vec2(0.0f, 1.0f), //3
+        glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec2(1.0f, 1.0f), //4
+        glm::vec3(-0.5f,  0.5f, -0.5f), glm::vec2(1.0f, 0.0f), //5
+        glm::vec3( 0.5f, -0.5f, -0.5f), glm::vec2(0.0f, 0.0f), //6
+        glm::vec3( 0.5f,  0.5f, -0.5f), glm::vec2(0.0f, 1.0f), //7
     };
 
     unsigned int indices[] = {
         0, 1, 2,
-        1, 3, 2,            
+        1, 3, 2,
+        4, 5, 6,
+        5, 7, 6,
     };
 
     glViewport(0, 0, 600, 400);
@@ -130,7 +136,7 @@ int main(void)
 
     /* Buffers */
     VertexBuffer vertexBuffer(vertices, sizeof(vertices));
-    IndexBuffer indexBuffer(indices, sizeof(indices), 6);
+    IndexBuffer indexBuffer(indices, sizeof(indices), 40);
 
     /* Vertex attributes */
     vertexArray.LinkVertexAttrib(vertexBuffer);
