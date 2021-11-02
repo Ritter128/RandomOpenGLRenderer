@@ -118,11 +118,18 @@ int main(void)
         glm::vec3( 0.5f,  0.5f, -0.5f), glm::vec2(0.0f, 1.0f), //7
     };
 
+/// *   * *
+/// * *  * *
+
+// ***
+// ***
+// ***
     unsigned int indices[] = {
         0, 1, 2,
         1, 3, 2,
         4, 5, 6,
         5, 7, 6,
+        4, 5, 0,
     };
 
     glViewport(0, 0, 600, 400);
@@ -135,7 +142,7 @@ int main(void)
 
     /* Buffers */
     VertexBuffer vertexBuffer(vertices, sizeof(vertices));
-    IndexBuffer indexBuffer(indices, sizeof(indices), 40);
+    IndexBuffer indexBuffer(indices, sizeof(indices), 15);
 
     /* Vertex attributes */
     vertexArray.LinkVertexAttrib(vertexBuffer);
