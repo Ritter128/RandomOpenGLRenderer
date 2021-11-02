@@ -1,0 +1,2 @@
+/usr/bin/ar qc libxwin16.a CMakeFiles/xwin16.dir/window.c.o CMakeFiles/xwin16.dir/file.c.o
+/usr/bin/ranlib libxwin16.a

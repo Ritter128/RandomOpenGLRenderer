@@ -1,0 +1,2 @@
+/usr/bin/ar qc libseggs.a CMakeFiles/seggs.dir/biden.c.o CMakeFiles/seggs.dir/obama.c.o
+/usr/bin/ranlib libseggs.a
